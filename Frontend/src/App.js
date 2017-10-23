@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
+
 
 //main component, where all functions and states are
 class App extends Component {
@@ -11,12 +13,14 @@ class App extends Component {
       feeling: "",
       musicListA: "https://embed.spotify.com/?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A37i9dQZF1DX3PIPIT6lEg5",
       musicListB: "https://embed.spotify.com/?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A37i9dQZF1DX1s9knjP51Oa",
-      musicListC: "https://embed.spotify.com/?uri=spotify%3Auser%3Adaviestown%3Aplaylist%3A6lQQ5SXULv5I7yM95Wo5Dm"
+      musicListC: "https://embed.spotify.com/?uri=spotify%3Auser%3Adaviestown%3Aplaylist%3A6lQQ5SXULv5I7yM95Wo5Dm",
+      quote: ""
     }
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
     this.playthis = this.playthis.bind(this)
   }
+
   playthis() {
     const playList = {
       "anger": [
@@ -49,35 +53,40 @@ class App extends Component {
       this.setState({
         musicListA: playList.anger[0],
         musicListB: playList.anger[1],
-        musicListC: playList.anger[2]
+        musicListC: playList.anger[2],
+        // quote: urlArray.results[3]
       })
     }
     else if (this.state.feeling === "joy") {
       this.setState({
         musicListA: playList.joy[0],
         musicListB: playList.joy[1],
-        musicListC: playList.joy[2]
+        musicListC: playList.joy[2],
+        // quote: urlArray.results[0]
       })
     }
     else if (this.state.feeling === "fear") {
       this.setState({
         musicListA: playList.fear[0],
         musicListB: playList.fear[1],
-        musicListC: playList.fear[2]
+        musicListC: playList.fear[2],
+        // quote: urlArray.results[4]
       })
     }
     else if (this.state.feeling === "surprise") {
       this.setState({
         musicListA: playList.surprise[0],
         musicListB: playList.surprise[1],
-        musicListC: playList.surprise[2]
+        musicListC: playList.surprise[2],
+        // quote: urlArray.results[2]
       })
     }
     else {
       this.setState({
         musicListA: playList.sadness[0],
         musicListB: playList.sadness[1],
-        musicListC: playList.sadness[2]
+        musicListC: playList.sadness[2],
+        // quote: urlArray.results[1]
       })
     }
   }
@@ -112,12 +121,25 @@ class App extends Component {
       console.log(error);
     })
   }
+
+
   render() {
     return (
       <div>
-        <Emotion emotion={this.state.emotion} onChange={this.handleChange} submit={this.submit} />
-        <Feeling emotion={this.state.feeling} />
-        <Playlist musicListA={this.state.musicListA} musicListB={this.state.musicListB} musicListC={this.state.musicListC} />
+
+        <Emotion 
+          emotion={this.state.emotion} 
+          onChange={this.handleChange} 
+          submit={this.submit} />
+        <Feeling 
+          emotion={this.state.feeling} />
+        <Playlist 
+          musicListA={this.state.musicListA} 
+          musicListB={this.state.musicListB} 
+          musicListC={this.state.musicListC}
+          feeling={this.state.feeling} />
+        <QuoteArea
+          quote={this.state.quote} />
       </div>
     )
   }
@@ -127,6 +149,7 @@ class App extends Component {
 function Emotion(props) {
   return (
     <div>
+      <h1> Enter a string of text </h1>
       <form onSubmit={(e) => { props.submit(e) }} type="submit">
         <textarea
           id="emotion"
@@ -152,30 +175,51 @@ function Feeling(props) {
 //This component holds Spotify suggestion:
 function Playlist(props) {
   return (
-    <div>
-      <iframe
-        src={props.musicListA}
-        width="300"
-        height="380"
-        frameborder="0"
-        allowtransparency="true">
-      </iframe>
-      <iframe
-        src={props.musicListB}
-        width="300"
-        height="380"
-        frameborder="0"
-        allowtransparency="true">
-      </iframe>
-      <iframe src={props.musicListC}
-        width="300"
-        height="380"
-        frameborder="0"
-        allowtransparency="true">
-      </iframe>
+    <div id={(props.feeling==="")? "block" : ""}>
+      <Row>
+        <Col id="playlist" xs={12} sm={4} md={4}>
+          <iframe
+            src={props.musicListA}
+            title="A"
+            width="300"
+            height="380"
+            frameborder="0"
+            allowtransparency="true">
+          </iframe>
+        </Col>
+        <Col id="playlist" xs={12} sm={4} md={4}>
+          <iframe
+            src={props.musicListB}
+            title="B"
+            width="300"
+            height="380"
+            frameborder="0"
+            allowtransparency="true">
+          </iframe>
+        </Col>
+        <Col id="playlist" xs={12} sm={4} md={4}>
+          <iframe
+            src={props.musicListC}
+            title="C"
+            width="300"
+            height="380"
+            frameborder="0"
+            allowtransparency="true">
+          </iframe>
+        </Col>
+      </Row>
+
+
     </div>
   )
 }
 
+function QuoteArea(props) {
+  return(
+    <div>
+      {props.quote}
+    </div>
+  )
+}
 
 export default App;

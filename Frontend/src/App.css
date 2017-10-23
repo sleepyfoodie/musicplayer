@@ -1,0 +1,28 @@
+body {
+    padding: 5%;
+    background-color: black;
+    color: white;
+}
+
+#emotion {
+    width: 50vw;
+    position: relative;
+}
+
+#playlist {
+    position: relative;
+    display: inline-block;
+    margin: 3%;
+}
+
+#block {
+    display: none;
+}
+
+::-webkit-scrollbar              { background-color: black; width: 2px;}
+::-webkit-scrollbar-button       { background-color: black; width: 2px;}
+::-webkit-scrollbar-track        { background-color: black; width: 2px;}
+::-webkit-scrollbar-track-piece  { background-color: black; width: 2px;}
+::-webkit-scrollbar-thumb        { background-color: black; width: 2px;}
+::-webkit-scrollbar-corner       { background-color: black; width: 2px;}
+::-webkit-resizer                { background-color: black; width: 2px;}
