@@ -19,8 +19,25 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
     this.playthis = this.playthis.bind(this)
+    this.callQuote = this.callQuote.bind(this)
   }
 
+  //callback function inside playthis(), this sends a post request to server for web scraping
+  callQuote() {
+    const promise = axios.post('http://localhost:8080/quote', {
+      "feeling": this.state.feeling
+    });
+    promise.then((result) => {
+      let quotes = result.data.titles;
+      let index = Math.floor((Math.random() * quotes.length));
+      console.log(quotes[index])
+    });
+    promise.catch((error) => {
+      console.log(error);
+    })
+  }
+
+  //this setstates the music playlist based on emotion that was returned, callback function from submit()
   playthis() {
     const playList = {
       "anger": [
@@ -55,7 +72,7 @@ class App extends Component {
         musicListB: playList.anger[1],
         musicListC: playList.anger[2],
         // quote: urlArray.results[3]
-      })
+      }, ()=> this.callQuote() )
     }
     else if (this.state.feeling === "joy") {
       this.setState({
@@ -63,7 +80,7 @@ class App extends Component {
         musicListB: playList.joy[1],
         musicListC: playList.joy[2],
         // quote: urlArray.results[0]
-      })
+      }, ()=> this.callQuote() )
     }
     else if (this.state.feeling === "fear") {
       this.setState({
@@ -71,7 +88,7 @@ class App extends Component {
         musicListB: playList.fear[1],
         musicListC: playList.fear[2],
         // quote: urlArray.results[4]
-      })
+      }, ()=> this.callQuote() )
     }
     else if (this.state.feeling === "surprise") {
       this.setState({
@@ -79,7 +96,7 @@ class App extends Component {
         musicListB: playList.surprise[1],
         musicListC: playList.surprise[2],
         // quote: urlArray.results[2]
-      })
+      }, ()=> this.callQuote() )
     }
     else {
       this.setState({
@@ -87,7 +104,7 @@ class App extends Component {
         musicListB: playList.sadness[1],
         musicListC: playList.sadness[2],
         // quote: urlArray.results[1]
-      })
+      }, ()=> this.callQuote() )
     }
   }
   handleChange(e) {
@@ -99,27 +116,42 @@ class App extends Component {
     })
   }
   submit(e) {
-    e.preventDefault()
-    const promise = axios.post('http://localhost:8080/text', {
-      "api_key": "64cb9e95d8040578512022fd5601c695",
-      "data": this.state.emotion,
-      "threshold": 0.1
-    });
-    promise.then((result) => {
-      console.log(result.data.results);
-      var emotions = result.data.results;
-      var emotion;
-      Object.keys(emotions).reduce(function (a, b) {
-        return emotion = emotions[a] > emotions[b] ? a : b
-      })
-      this.setState({
-        feeling: emotion,
-        emotion: ""
-      }, () => this.playthis())
-    });
-    promise.catch((error) => {
-      console.log(error);
-    })
+    e.preventDefault() 
+
+//this section is commented out for now. this.state.emotion is hard coded with "joy" or "surprise" for now to prevent API calls,
+//since there is a limit to number of API calls/month
+
+    // const promise = axios.post('http://localhost:8080/text', {
+    //   "api_key": "64cb9e95d8040578512022fd5601c695",
+    //   "data": this.state.emotion,
+    //   "threshold": 0.1
+    // });
+    // promise.then((result) => {
+    //   console.log(result.data.results);
+    //   var emotions = result.data.results;
+    //   var emotion;
+    //   Object.keys(emotions).reduce(function (a, b) {
+    //     return emotion = emotions[a] > emotions[b] ? a : b
+    //   })
+    //   this.setState({
+    //     feeling: emotion,
+    //     emotion: ""
+    //   }, () => this.playthis())
+    // });
+    // promise.catch((error) => {
+    //   console.log(error);
+    // })
+
+if (this.state.emotion.length > 5) {
+  this.setState ({
+    feeling: "joy"
+  }, ()=>this.playthis())
+}
+else {
+  this.setState ({
+    feeling: "surprise"
+  }, ()=>this.playthis())
+}
   }
 
 
