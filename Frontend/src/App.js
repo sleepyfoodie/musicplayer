@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   callQuote() {
-    const promise = axios.post('http://localhost:8080/quote', {
+    const promise = axios.post('/quote', {
       "feeling": this.state.feeling
     });
     promise.then((result) => {
@@ -162,7 +162,7 @@ class App extends Component {
 
   submit(e) {
     e.preventDefault()
-    const promise = axios.post('http://localhost:8080/text', {
+    const promise = axios.post('/text', {
       "api_key": "64cb9e95d8040578512022fd5601c695",
       "data": this.state.emotion,
       "threshold": 0.1
