@@ -569,6 +569,18 @@ readable-stream@^2.0.2:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+"reposititory@https://github.com/sleepyfoodie/musicplayer":
+  version ""
+  resolved "https://github.com/sleepyfoodie/musicplayer#b035856b65469e23f2ebae1513e3bb3181e7069e"
+  dependencies:
+    axios "^0.16.2"
+    body-parser "^1.18.2"
+    cheerio "^1.0.0-rc.2"
+    express "^4.16.2"
+    reposititory "https://github.com/sleepyfoodie/musicplayer"
+    request "^2.83.0"
+    request-promise "^4.2.2"
+
 request-promise-core@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.1.tgz#3eee00b2c5aa83239cfb04c5700da36f81cd08b6"
