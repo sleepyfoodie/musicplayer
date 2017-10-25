@@ -35,16 +35,16 @@ class App extends Component {
   }
   //to scroll to Quote
   toQuote() {
-    if (this.state.feeling == "joy") {
+    if (this.state.feeling === "joy") {
       smoothScroll(document.querySelector('#JoyQ'))
     }
-    else if (this.state.feeling == "surprise") {
+    else if (this.state.feeling === "surprise") {
       smoothScroll(document.querySelector('#SurpriseQ'))
     }
-    else if (this.state.feeling == "sadness") {
+    else if (this.state.feeling === "sadness") {
       smoothScroll(document.querySelector("#SadnessQ"))
     }
-    else if (this.state.feeling == "fear") {
+    else if (this.state.feeling === "fear") {
       smoothScroll(document.querySelector("#FearQ"))
     }
     else {
@@ -57,8 +57,8 @@ class App extends Component {
   }
   //callback function inside playthis(), this sends a post request to server for web scraping
   callQuote() {
-    // const promise = axios.post('http://localhost:8080/quote', {
-    const promise = axios.post('/quote', {
+    const promise = axios.post('http://localhost:8080/quote', {
+    // const promise = axios.post('/quote', {
       "feeling": this.state.feeling
     });
     promise.then((result) => {
@@ -76,16 +76,16 @@ class App extends Component {
 
   //this setstates the music playlist based on emotion that was returned, callback function from submit()
   playthis() {
-    if (this.state.feeling == "joy") {
+    if (this.state.feeling === "joy") {
       smoothScroll(document.querySelector('#Joy'))
     }
-    else if (this.state.feeling == "surprise") {
+    else if (this.state.feeling === "surprise") {
       smoothScroll(document.querySelector('#Surprise'))
     }
-    else if (this.state.feeling == "sadness") {
+    else if (this.state.feeling === "sadness") {
       smoothScroll(document.querySelector("#Sadness"))
     }
-    else if (this.state.feeling == "fear") {
+    else if (this.state.feeling === "fear") {
       smoothScroll(document.querySelector("#Fear"))
     }
     else {
@@ -169,8 +169,8 @@ class App extends Component {
   submit(e) {
     // window.scrollTo(80, document.body.scrollHeight);
     e.preventDefault()
-    // const promise = axios.post('http://localhost:8080/text', {
-    const promise = axios.post('/text', {
+    const promise = axios.post('http://localhost:8080/text', {
+    // const promise = axios.post('/text', {
       "api_key": "64cb9e95d8040578512022fd5601c695",
       "data": this.state.emotion,
       "threshold": 0.1
@@ -267,11 +267,11 @@ function Emotion(props) {
 //This component shows what the user is feeling
 function Feeling(props) {
   return (
-    <div id={(props.emotion == "joy") ? "Joy" :
-      ((props.emotion == "surprise") ? "Surprise" :
-        ((props.emotion == "sadness") ? "Sadness" :
-          ((props.emotion == "anger") ? "Anger" :
-            ((props.emotion == "fear") ? "Fear" : "block"))))}>
+    <div id={(props.emotion === "joy") ? "Joy" :
+      ((props.emotion === "surprise") ? "Surprise" :
+        ((props.emotion === "sadness") ? "Sadness" :
+          ((props.emotion === "anger") ? "Anger" :
+            ((props.emotion === "fear") ? "Fear" : "block"))))}>
       <div className="feeling">
         <h1>Based on your texts...</h1>
         <h1>You are feeling ... <i><span id={`a+${props.emotion}`}>{props.emotion}</span></i></h1>
@@ -336,11 +336,11 @@ function Playlist(props) {
 //This component spits out a quote for users depending on what emotion the API gives them
 function QuoteArea(props) {
   return (
-    <div id={(props.emotion == "joy") ? "JoyQ" :
-      ((props.emotion == "surprise") ? "SurpriseQ" :
-        ((props.emotion == "sadness") ? "SadnessQ" :
-          ((props.emotion == "anger") ? "AngerQ" :
-            ((props.emotion == "fear") ? "FearQ" : "block"))))}>
+    <div id={(props.emotion === "joy") ? "JoyQ" :
+      ((props.emotion === "surprise") ? "SurpriseQ" :
+        ((props.emotion === "sadness") ? "SadnessQ" :
+          ((props.emotion === "anger") ? "AngerQ" :
+            ((props.emotion === "fear") ? "FearQ" : "block"))))}>
       <h1>{props.quote}</h1>
       <p></p>
       <button id="toquote" onClick={props.tohome}>Again</button>
