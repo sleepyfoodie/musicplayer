@@ -89,7 +89,7 @@ app.post('/text', (req, res) => {
 
 //For Deployment
 //middleware for express server to set up folder to serve static files (for access to all bundle.js and images)
-app.use(express.static(__dirname + "./Frontend/build"))
+app.use(express.static(__dirname + "/Frontend/build"))
 
 
 app.get("*", (req,res) => {
