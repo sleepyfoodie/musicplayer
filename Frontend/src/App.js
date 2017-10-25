@@ -27,7 +27,7 @@ class App extends Component {
 
   //to top
   toHome() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.setState({
       emotion: "",
       feeling: ""
@@ -57,7 +57,8 @@ class App extends Component {
   }
   //callback function inside playthis(), this sends a post request to server for web scraping
   callQuote() {
-    const promise = axios.post('http://localhost:8080/quote', {
+    // const promise = axios.post('http://localhost:8080/quote', {
+    const promise = axios.post('/quote', {
       "feeling": this.state.feeling
     });
     promise.then((result) => {
@@ -168,41 +169,27 @@ class App extends Component {
   submit(e) {
     // window.scrollTo(80, document.body.scrollHeight);
     e.preventDefault()
-
-    //this section is commented out for now. this.state.emotion is hard coded with "joy" or "surprise" for now to prevent API calls,
-    //since there is a limit to number of API calls/month
-
     // const promise = axios.post('http://localhost:8080/text', {
-    //   "api_key": "64cb9e95d8040578512022fd5601c695",
-    //   "data": this.state.emotion,
-    //   "threshold": 0.1
-    // });
-    // promise.then((result) => {
-    //   console.log(result.data.results);
-    //   var emotions = result.data.results;
-    //   var emotion;
-    //   Object.keys(emotions).reduce(function (a, b) {
-    //     return emotion = emotions[a] > emotions[b] ? a : b
-    //   })
-    //   this.setState({
-    //     feeling: emotion,
-    //     emotion: ""
-    //   }, () => this.playthis())
-    // });
-    // promise.catch((error) => {
-    //   console.log(error);
-    // })
-
-    if (this.state.emotion.length > 5) {
+    const promise = axios.post('/text', {
+      "api_key": "64cb9e95d8040578512022fd5601c695",
+      "data": this.state.emotion,
+      "threshold": 0.1
+    });
+    promise.then((result) => {
+      console.log(result.data.results);
+      var emotions = result.data.results;
+      var emotion;
+      Object.keys(emotions).reduce(function (a, b) {
+        return emotion = emotions[a] > emotions[b] ? a : b
+      })
       this.setState({
-        feeling: "joy"
+        feeling: emotion,
+        emotion: ""
       }, () => this.playthis())
-    }
-    else {
-      this.setState({
-        feeling: "surprise"
-      }, () => this.playthis())
-    }
+    });
+    promise.catch((error) => {
+      console.log(error);
+    })
   }
 
 
@@ -287,7 +274,7 @@ function Feeling(props) {
             ((props.emotion == "fear") ? "Fear" : "block"))))}>
       <div className="feeling">
         <h1>Based on your texts...</h1>
-        <h1>You are feeling ... <i>{props.emotion}</i></h1>
+        <h1>You are feeling ... <i><span id={`a+${props.emotion}`}>{props.emotion}</span></i></h1>
         <button
           id="feel"
           onClick={props.toMusic}

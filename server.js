@@ -45,17 +45,15 @@ app.post('/quote', (req, res) => {
         url = urlArray.fear
     }
     request(url, function (error, response, body) {
+        counter = 0;
         if (!error) {
             var $ = cheerio.load(body),
                 titles = $(".quoteText");
             titles.each(function (i, title) {
-                titleResults[i] = JSON.stringify({
-                    'data': ($(title).text())
-                })
+                titleResults[i] = JSON.stringify(($(title).text()).replace(/\W/g, ' '))
                 counter++;
                 if (counter === titles.length) {
                     res.send({ titles: titleResults });
-                    console.log({titles: titleResults[0]})
                 }
             })
         } else {
@@ -89,6 +87,19 @@ app.post('/text', (req, res) => {
 
 
 
-app.listen(8080, () => {
-    console.log('Server is running on 8080');
+// app.listen(8080, () => {
+//     console.log('Server is running on 8080');
+// })
+
+//For Deployment
+//middleware for express server to set up folder to serve static files (for access to all bundle.js and images)
+app.use(express.static(path.resolve(__dirname + "./../Frontend/build")))
+
+
+app.get("*", (req,res) => {
+    res.sendFile(path.resolve(__dirname+"./../Frontend/build/index.html"))
+})
+
+app.listen(process.env.PORT || 8080, () => {
+    console.log('SERVER RUNNING ON 8080');
 })

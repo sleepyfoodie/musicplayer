@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const request = require('request');
-    cheerio = require("cheerio"),
+cheerio = require("cheerio"),
 
 
     urlArray = {
@@ -14,7 +14,7 @@ const request = require('request');
             "https://www.goodreads.com/quotes/tag/anger",
             "https://www.goodreads.com/quotes/tag/fear"
         ],
-        results: [null,null,null,null,null]
+        results: [null, null, null, null, null]
     }
 
 
@@ -31,22 +31,74 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-function loadData(data){
-    for(let x=0; x<data.links.length; x++) {
-        request(data.links[x], function (error, response, body) {
-            var $ = cheerio.load(body),
-                quotes = $(".quoteText"); 
-                quotes.each(function (i, title) {
-                    data.results[x]=($(title).text());
-                })//end quotes
-        }).then( (result) => {
-            console.log(urlArray.results[x], 'hello');
-        }).catch( (err) => {
-            console.log(err); 
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const axios = require('axios');
+var request = require("request-promise"),
+    cheerio = require("cheerio"),
+
+    urlArray = {
+        "joy": "https://www.goodreads.com/quotes/tag/happiness",
+        "sadness": "https://www.goodreads.com/quotes/tag/sadness",
+        "surprise": "https://www.goodreads.com/quotes/tag/surprise",
+        "anger": "https://www.goodreads.com/quotes/tag/anger",
+        "fear": "https://www.goodreads.com/quotes/tag/fear"
+    }
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+//web scraping. based on which emotion the api returns, it will grab a collection of quotes scraped from the site 
+app.get('/quote', (req, res) => {
+    var options = {
+        uri: 'http://www.google.com',
+        transform: function (body) {
+            return cheerio.load(body);
+        }
+    };
+
+
+    //request-promise way - Will
+    rp(options)
+        .then(function ($) {
+            var titles = $(".quoteText");
+            var titlesArray = titles.map(function (i, title) {
+                return JSON.stringify({ 'data': ($(title).text()) })
+            })
+            res.send(titlesArray)
         })
-    }//end for loop
-}
-loadData(urlArray);
+        .catch(function (err) {
+            // Crawling failed or Cheerio choked...
+            console.log(err)
+        });
+
+    //request way - Will
+    request("https://www.goodreads.com/quotes/tag/fear", function (error, response, body) {
+        if (!error) {
+            var $ = cheerio.load(body),
+                titles = $(".quoteText");
+            var titlesArray = titles.map(function (i, title) {
+                return JSON.stringify({ 'data': ($(title).text()) })
+            })
+            res.send(titlesArray)
+        } else {
+            res.send(404)
+            console.log("Cheerio error: " + error);
+        }
+    })
+
+});
+
+
 
 
 
