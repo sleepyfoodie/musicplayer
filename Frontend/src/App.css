@@ -401,10 +401,15 @@ from {
 }
 
 @media only screen and (max-width: 1190px) {
-    #Playlist{
-        height: 100%;
-    }
+  #Playlist{
+    height: 100%;
   }
+}
+@media only screen and (max-width: 1130px) {
+  #JoyQ, #SurpriseQ, #SadnessQ, #FearQ, #AngerQ {
+    height: 100%;
+  }
+}
 
 #FearQ {
     background-color: #52414c;
@@ -432,6 +437,35 @@ from {
     background-color: #f78562;
     padding: 5%;
     height: 100vh;
+}
+#thanks {
+  text-align: right;
+  position: relative;
+  top: 10%;
+}
+#thanks h1 {
+  display: inline-block;
+  position: relative;
+
+}
+#thanks span {
+  color: transparent;
+  margin-right: 10px;
+}
+#spin {
+  font-style: italic;
+  display: inline-block;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+  animation-name: flip;
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+  animation-iteration-count: infinite;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
 }
 
 ::-webkit-scrollbar              { background-color: black; width: 2px;}

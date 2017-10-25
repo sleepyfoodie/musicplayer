@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   callQuote() {
-    const promise = axios.post('/quote', {
+    const promise = axios.post('http://localhost:8080/quote', {
       "feeling": this.state.feeling
     });
     promise.then((result) => {
@@ -162,7 +162,7 @@ class App extends Component {
 
   submit(e) {
     e.preventDefault()
-    const promise = axios.post('/text', {
+    const promise = axios.post('http://localhost:8080/text', {
       "api_key": "64cb9e95d8040578512022fd5601c695",
       "data": this.state.emotion,
       "threshold": 0.1
@@ -333,6 +333,9 @@ function QuoteArea(props) {
       <h1>{props.quote}</h1>
       <p></p>
       <button id="toquote" onClick={props.tohome}>Again</button>
+      <div id="thanks">
+        <h1 id="spin">Thanks</h1><span>.</span><h1>for playing</h1>
+      </div>
     </div>
   )
 }
