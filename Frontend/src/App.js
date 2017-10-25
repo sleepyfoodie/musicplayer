@@ -216,25 +216,26 @@ function Emotion(props) {
     <div className="Emotion">
       <div id="wrap">
         <h1>
-          <span>E</span>
-          <span>n</span>
+          <span>W</span>
+          <span>h</span>
+          <span>a</span>
           <span>t</span>
-          <span>e</span>
-          <span>r</span>
-          <div id="words"></div>
-          <span>w</span>
-          <span>o</span>
-          <span>r</span>
-          <span>d</span>
+          <span>'</span>
           <span>s</span>
           <div id="words"></div>
-          <span>i</span>
+          <span>o</span>
           <span>n</span>
           <div id="words"></div>
-          <span>h</span>
-          <span>e</span>
+          <span>y</span>
+          <span>o</span>
+          <span>u</span>
           <span>r</span>
-          <span>e</span>
+          <div id="words"></div>
+          <span>m</span>
+          <span>i</span>
+          <span>n</span>
+          <span>d</span>
+          <span>?</span>
         </h1>
         <p></p>
         <form onSubmit={(e) => { props.submit(e) }} type="submit">
