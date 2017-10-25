@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
-
+var smoothScroll = require('smoothscroll');
 
 //main component, where all functions and states are
 class App extends Component {
@@ -20,8 +20,41 @@ class App extends Component {
     this.submit = this.submit.bind(this)
     this.playthis = this.playthis.bind(this)
     this.callQuote = this.callQuote.bind(this)
+    this.toMusic = this.toMusic.bind(this)
+    this.toQuote = this.toQuote.bind(this)
+    this.toHome = this.toHome.bind(this)
   }
 
+  //to top
+  toHome() {
+    window.scrollTo(0,0);
+    this.setState({
+      emotion: "",
+      feeling: ""
+    })
+  }
+  //to scroll to Quote
+  toQuote() {
+    if (this.state.feeling == "joy") {
+      smoothScroll(document.querySelector('#JoyQ'))
+    }
+    else if (this.state.feeling == "surprise") {
+      smoothScroll(document.querySelector('#SurpriseQ'))
+    }
+    else if (this.state.feeling == "sadness") {
+      smoothScroll(document.querySelector("#SadnessQ"))
+    }
+    else if (this.state.feeling == "fear") {
+      smoothScroll(document.querySelector("#FearQ"))
+    }
+    else {
+      smoothScroll(document.querySelector("#AngerQ"))
+    }
+  }
+  //to scroll to Spotify Playlist
+  toMusic() {
+    smoothScroll(document.querySelector('#Playlist'));
+  }
   //callback function inside playthis(), this sends a post request to server for web scraping
   callQuote() {
     const promise = axios.post('http://localhost:8080/quote', {
@@ -30,7 +63,10 @@ class App extends Component {
     promise.then((result) => {
       let quotes = result.data.titles;
       let index = Math.floor((Math.random() * quotes.length));
-      console.log(quotes[index])
+      this.setState({
+        quote: quotes[index]
+      })
+      console.log(quotes)
     });
     promise.catch((error) => {
       console.log(error);
@@ -39,6 +75,21 @@ class App extends Component {
 
   //this setstates the music playlist based on emotion that was returned, callback function from submit()
   playthis() {
+    if (this.state.feeling == "joy") {
+      smoothScroll(document.querySelector('#Joy'))
+    }
+    else if (this.state.feeling == "surprise") {
+      smoothScroll(document.querySelector('#Surprise'))
+    }
+    else if (this.state.feeling == "sadness") {
+      smoothScroll(document.querySelector("#Sadness"))
+    }
+    else if (this.state.feeling == "fear") {
+      smoothScroll(document.querySelector("#Fear"))
+    }
+    else {
+      smoothScroll(document.querySelector("#Anger"))
+    }
     const playList = {
       "anger": [
         "https://embed.spotify.com/?uri=spotify%3Auser%3Alenalynn2222%3Aplaylist%3A6SO62h8wlSqf7YS5tIIabJ",
@@ -71,42 +122,39 @@ class App extends Component {
         musicListA: playList.anger[0],
         musicListB: playList.anger[1],
         musicListC: playList.anger[2],
-        // quote: urlArray.results[3]
-      }, ()=> this.callQuote() )
+      }, () => this.callQuote())
     }
     else if (this.state.feeling === "joy") {
       this.setState({
         musicListA: playList.joy[0],
         musicListB: playList.joy[1],
         musicListC: playList.joy[2],
-        // quote: urlArray.results[0]
-      }, ()=> this.callQuote() )
+      }, () => this.callQuote())
     }
     else if (this.state.feeling === "fear") {
       this.setState({
         musicListA: playList.fear[0],
         musicListB: playList.fear[1],
         musicListC: playList.fear[2],
-        // quote: urlArray.results[4]
-      }, ()=> this.callQuote() )
+      }, () => this.callQuote())
     }
     else if (this.state.feeling === "surprise") {
       this.setState({
         musicListA: playList.surprise[0],
         musicListB: playList.surprise[1],
         musicListC: playList.surprise[2],
-        // quote: urlArray.results[2]
-      }, ()=> this.callQuote() )
+      }, () => this.callQuote())
     }
     else {
       this.setState({
         musicListA: playList.sadness[0],
         musicListB: playList.sadness[1],
         musicListC: playList.sadness[2],
-        // quote: urlArray.results[1]
-      }, ()=> this.callQuote() )
+      }, () => this.callQuote())
     }
   }
+
+  //Takes the new value from textfield and resets state
   handleChange(e) {
     const target = e.target;
     const value = target.value;
@@ -115,11 +163,14 @@ class App extends Component {
       [name]: value
     })
   }
-  submit(e) {
-    e.preventDefault() 
 
-//this section is commented out for now. this.state.emotion is hard coded with "joy" or "surprise" for now to prevent API calls,
-//since there is a limit to number of API calls/month
+  //Submit Button Function
+  submit(e) {
+    // window.scrollTo(80, document.body.scrollHeight);
+    e.preventDefault()
+
+    //this section is commented out for now. this.state.emotion is hard coded with "joy" or "surprise" for now to prevent API calls,
+    //since there is a limit to number of API calls/month
 
     // const promise = axios.post('http://localhost:8080/text', {
     //   "api_key": "64cb9e95d8040578512022fd5601c695",
@@ -142,16 +193,16 @@ class App extends Component {
     //   console.log(error);
     // })
 
-if (this.state.emotion.length > 5) {
-  this.setState ({
-    feeling: "joy"
-  }, ()=>this.playthis())
-}
-else {
-  this.setState ({
-    feeling: "surprise"
-  }, ()=>this.playthis())
-}
+    if (this.state.emotion.length > 5) {
+      this.setState({
+        feeling: "joy"
+      }, () => this.playthis())
+    }
+    else {
+      this.setState({
+        feeling: "surprise"
+      }, () => this.playthis())
+    }
   }
 
 
@@ -159,19 +210,23 @@ else {
     return (
       <div>
 
-        <Emotion 
-          emotion={this.state.emotion} 
-          onChange={this.handleChange} 
+        <Emotion
+          emotion={this.state.emotion}
+          onChange={this.handleChange}
           submit={this.submit} />
-        <Feeling 
-          emotion={this.state.feeling} />
-        <Playlist 
-          musicListA={this.state.musicListA} 
-          musicListB={this.state.musicListB} 
+        <Feeling
+          emotion={this.state.feeling}
+          toMusic={this.toMusic} />
+        <Playlist
+          musicListA={this.state.musicListA}
+          musicListB={this.state.musicListB}
           musicListC={this.state.musicListC}
-          feeling={this.state.feeling} />
+          feeling={this.state.feeling}
+          toQuote={this.toQuote} />
         <QuoteArea
-          quote={this.state.quote} />
+          quote={this.state.quote}
+          emotion={this.state.feeling}
+          tohome={this.toHome} />
       </div>
     )
   }
@@ -180,17 +235,44 @@ else {
 //This component holds the box where user enters a string of text and submit it into an API for lexical analytics.
 function Emotion(props) {
   return (
-    <div>
-      <h1> Enter a string of text </h1>
-      <form onSubmit={(e) => { props.submit(e) }} type="submit">
-        <textarea
-          id="emotion"
-          required
-          value={props.emotion}
-          onChange={(e) => { props.onChange(e) }}>
-        </textarea>
-        <button onClick={props.submit}>enter</button>
-      </form>
+    <div className="Emotion">
+      <div id="wrap">
+        <h1>
+          <span>E</span>
+          <span>n</span>
+          <span>t</span>
+          <span>e</span>
+          <span>r</span>
+          <div id="words"></div>
+          <span>w</span>
+          <span>o</span>
+          <span>r</span>
+          <span>d</span>
+          <span>s</span>
+          <div id="words"></div>
+          <span>i</span>
+          <span>n</span>
+          <div id="words"></div>
+          <span>h</span>
+          <span>e</span>
+          <span>r</span>
+          <span>e</span>
+        </h1>
+        <p></p>
+        <form onSubmit={(e) => { props.submit(e) }} type="submit">
+          <textarea
+            id="emotion"
+            required
+            value={props.emotion}
+            onChange={(e) => { props.onChange(e) }}>
+          </textarea>
+          <p></p>
+          <button
+            id="button"
+            onClick={props.submit}>SUBMIT
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
@@ -198,8 +280,19 @@ function Emotion(props) {
 //This component shows what the user is feeling
 function Feeling(props) {
   return (
-    <div>
-      You are feeling: {props.emotion}
+    <div id={(props.emotion == "joy") ? "Joy" :
+      ((props.emotion == "surprise") ? "Surprise" :
+        ((props.emotion == "sadness") ? "Sadness" :
+          ((props.emotion == "anger") ? "Anger" :
+            ((props.emotion == "fear") ? "Fear" : "block"))))}>
+      <div className="feeling">
+        <h1>Based on your texts...</h1>
+        <h1>You are feeling ... <i>{props.emotion}</i></h1>
+        <button
+          id="feel"
+          onClick={props.toMusic}
+        >Next</button>
+      </div>
     </div>
   )
 }
@@ -207,7 +300,8 @@ function Feeling(props) {
 //This component holds Spotify suggestion:
 function Playlist(props) {
   return (
-    <div id={(props.feeling==="")? "block" : ""}>
+    <div id={(props.feeling === "") ? "block" : "Playlist"}>
+      <h1>Here are some playlists for {props.feeling}</h1>
       <Row>
         <Col id="playlist" xs={12} sm={4} md={4}>
           <iframe
@@ -240,16 +334,29 @@ function Playlist(props) {
           </iframe>
         </Col>
       </Row>
+      <p></p>
+      <button
+        id="toquote"
+        onClick={props.toQuote}>
+        Next
+        </button>
 
 
     </div>
   )
 }
 
+//This component spits out a quote for users depending on what emotion the API gives them
 function QuoteArea(props) {
-  return(
-    <div>
-      {props.quote}
+  return (
+    <div id={(props.emotion == "joy") ? "JoyQ" :
+      ((props.emotion == "surprise") ? "SurpriseQ" :
+        ((props.emotion == "sadness") ? "SadnessQ" :
+          ((props.emotion == "anger") ? "AngerQ" :
+            ((props.emotion == "fear") ? "FearQ" : "block"))))}>
+      <h1>{props.quote}</h1>
+      <p></p>
+      <button id="toquote" onClick={props.tohome}>Again</button>
     </div>
   )
 }

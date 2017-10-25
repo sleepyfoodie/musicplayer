@@ -1,22 +1,311 @@
 body {
-    padding: 5%;
-    background-color: black;
     color: white;
+    font-family: 'Comfortaa', cursive;
+    scroll-behavior: smooth;
 }
-
+.Emotion {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    overflow-y: hidden;
+}
 #emotion {
     width: 50vw;
     position: relative;
+    border-radius: 3%;
+    opacity: 0.85;
 }
 
-#playlist {
+#button {
+    display: inline;
+    position: relative;
+    border-radius: 5%;
+    border: white 2px solid;
+    color :white;
+    background-color: black;
+    margin: auto;
+    font-family: 'Comfortaa', cursive;
+    font-size: 110%;
+    opacity: 0.9;
+    transition:all .5s ease-in-out;
+}
+#button::after {
+    content: "";
+    border-radius: 5%;
+    position: relative;
+    z-index: -1;
+    opacity: 0;
+    box-shadow: 0 0px 0px white;
+    font-weight: bold;
+    transition:all .5s ease-in-out;
+}
+#button:hover {
+    -webkit-transform: scale(1.10,1.10);
+    transform: scale(1.10, 1.10);
+}
+#button:hover::after {
+    opacity: 1;
+}
+#wrap {
     position: relative;
     display: inline-block;
-    margin: 3%;
+    margin: 0 auto;
 }
-
+#words {
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+}
+.Emotion h1 span {
+    display: inline-block;
+    transform: translateY(20px) rotate(180deg);
+    transform-origin: left;
+    animation: in 0.5s forwards;
+  }
+  .Emotion h1 span:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .Emotion h1 span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .Emotion h1 span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .Emotion h1 span:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .Emotion h1 span:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  .Emotion h1 span:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  .Emotion h1 span:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  .Emotion h1 span:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+  .Emotion h1 span:nth-child(9) {
+    animation-delay: 0.9s;
+  }
+  .Emotion h1 span:nth-child(10) {
+    animation-delay: 1.0s;
+  }
+  .Emotion h1 span:nth-child(11) {
+    animation-delay: 1.1s;
+  }
+  .Emotion h1 span:nth-child(12) {
+    animation-delay: 1.2s;
+  }
+  .Emotion h1 span:nth-child(13) {
+    animation-delay: 1.3s;
+  }
+  .Emotion h1 span:nth-child(14) {
+    animation-delay: 1.4s;
+  }
+  .Emotion h1 span:nth-child(15) {
+    animation-delay: 1.5s;
+  }
+  .Emotion h1 span:nth-child(16) {
+    animation-delay: 1.6s;
+  }
+  .Emotion h1 span:nth-child(17) {
+    animation-delay: 1.7s;
+  }
+  .Emotion h1 span:nth-child(18) {
+    animation-delay: 1.8s;
+  }
+  .Emotion h1 span:nth-child(19) {
+    animation-delay: 1.9s;
+  }
+  
+  
+  @keyframes in {
+    0% {
+      opacity: 0;
+      transform: translateY(50px) rotate(180deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
 #block {
     display: none;
+}
+
+#Joy {
+    color: white;
+    background-color: #f78562;
+    background-size: cover;
+    text-align: center;
+    margin: auto 0;
+    padding: 3%;
+    height: 100vh;
+    vertical-align: middle;
+}
+#Sadness {
+    color: white;
+    background-color: #30bced;
+    background-size: cover;
+    text-align: center;
+    margin: auto 0;
+    padding: 3%;
+    height: 100vh;
+    vertical-align: middle;
+}
+#Surprise {
+    color: white;
+    background-color: #419d78;
+    background-size: cover;
+    text-align: center;
+    margin: auto 0;
+    padding: 3%;
+    height: 100vh;
+    vertical-align: middle;
+}
+#Fear {
+    color: white;
+    background-color: #52414c;
+    background-size: cover;
+    text-align: center;
+    margin: auto 0;
+    padding: 3%;
+    height: 100vh;
+    vertical-align: middle;
+}
+#Anger {
+    color: white;
+    background-color: #d8204e;
+    background-size: cover;
+    text-align: center;
+    margin: auto 0;
+    padding: 3%;
+    height: 100vh;
+    vertical-align: middle;
+}
+
+.feeling {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    top: 30%;
+    margin: 0;
+}
+#feel {
+    position: relative;
+    font-size: 110%;
+    border-radius: 6%;
+    border: 2px white solid;
+    color: white;
+    background-color: transparent;
+    font-family: 'Comfortaa', cursive;
+    opacity: 0.9;
+    transition:all .5s ease-in-out;
+}
+#feel::after {
+    content: "";
+    border-radius: 6%;
+    position: relative;
+    z-index: -1;
+    opacity: 0;
+    box-shadow: 0 0px 0px white;
+    font-weight: bold;
+    transition:all .5s ease-in-out;
+}
+#feel:hover {
+    -webkit-transform: scale(1.10,1.10);
+    transform: scale(1.10, 1.10);
+}
+#feel:hover::after {
+    opacity: 1;
+}
+
+
+
+
+
+
+#Playlist {
+    background-color: black;
+    text-align: center;
+    height: 100vh;
+    padding-top: 5%;
+}
+#playlist {
+    display: inline-block;
+    position: relative;
+    padding: 1.5%
+}
+#toquote {
+    position: relative;
+    font-size: 110%;
+    border-radius: 6%;
+    border: 2px white solid;
+    color: white;
+    background-color: transparent;
+    font-family: 'Comfortaa', cursive;
+    opacity: 0.9;
+    transition:all .5s ease-in-out;
+}
+#toquote::after {
+    content: "";
+    border-radius: 6%;
+    position: relative;
+    z-index: -1;
+    opacity: 0;
+    box-shadow: 0 0px 0px white;
+    font-weight: bold;
+    transition:all .5s ease-in-out;
+}
+#toquote:hover {
+    -webkit-transform: scale(1.10,1.10);
+    transform: scale(1.10, 1.10);
+}
+#toquote:hover::after {
+    opacity: 1;
+}
+#Playlist h1 {
+    margin-top: 0%;
+}
+
+@media only screen and (max-width: 1190px) {
+    #Playlist{
+        height: 100%;
+    }
+  }
+
+#FearQ {
+    background-color: #52414c;
+    padding: 5%;
+    height: 100vh;
+}
+#SurpriseQ {
+    background-color: #419D78;
+    padding: 5%;
+    height: 100vh;
+    text-align: center;
+    line-height: 50px;
+}
+#AngerQ {
+    background-color: #d8204e;
+    padding: 5%;
+    height: 100vh;
+}
+#SadnessQ {
+    background-color: #30BCED;
+    padding: 5%;
+    height: 100vh;
+}
+#JoyQ {
+    background-color: #f78562;
+    padding: 5%;
+    height: 100vh;
 }
 
 ::-webkit-scrollbar              { background-color: black; width: 2px;}
