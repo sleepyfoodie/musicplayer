@@ -93,12 +93,12 @@ app.post('/text', (req, res) => {
 
 //For Deployment
 //middleware for express server to set up folder to serve static files (for access to all bundle.js and images)
-app.use(express.static(path.resolve(__dirname + "./../Frontend/build")))
+app.use(express.static(path.resolve(__dirname + "./Frontend/build")))
 
 
 app.get("*", (req,res) => {
     console.log("server running on ubuntu")
-    res.sendFile(path.resolve(__dirname+"./../Frontend/build/index.html"))
+    res.sendFile(path.resolve(__dirname+"./Frontend/build/index.html"))
 })
 
 app.listen(process.env.PORT || 8080, () => {
