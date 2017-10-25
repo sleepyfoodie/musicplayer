@@ -98,7 +98,7 @@ app.use(express.static(__dirname + "./Frontend/build"))
 
 app.get("*", (req,res) => {
     console.log("server running on ubuntu")
-    res.sendFile(__dirname + "./Frontend/build/index.html")
+    res.sendFile(__dirname + "/Frontend/build/index.html")
 })
 
 app.listen(process.env.PORT || 8080, () => {
