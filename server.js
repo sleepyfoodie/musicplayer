@@ -75,7 +75,7 @@ app.post('/text', (req, res) => {
         JSON.stringify({
             'api_key': "64cb9e95d8040578512022fd5601c695",
             'data': req.body.data, //string of words
-            'threshold': 0.1 //it's suppose to return only 1 emotion
+            'threshold': 0.1
         })
     ).then((response) => {
         res.send(response.data);
@@ -86,10 +86,6 @@ app.post('/text', (req, res) => {
 })
 
 
-
-// app.listen(8080, () => {
-//     console.log('Server is running on 8080');
-// })
 
 //For Deployment
 //middleware for express server to set up folder to serve static files (for access to all bundle.js and images)

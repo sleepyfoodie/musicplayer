@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 var smoothScroll = require('smoothscroll');
 
-//main component, where all functions and states are
 class App extends Component {
   constructor() {
     super()
@@ -25,7 +24,6 @@ class App extends Component {
     this.toHome = this.toHome.bind(this)
   }
 
-  //to top
   toHome() {
     window.scrollTo(0, 0);
     this.setState({
@@ -33,7 +31,7 @@ class App extends Component {
       feeling: ""
     })
   }
-  //to scroll to Quote
+
   toQuote() {
     if (this.state.feeling === "joy") {
       smoothScroll(document.querySelector('#JoyQ'))
@@ -51,13 +49,12 @@ class App extends Component {
       smoothScroll(document.querySelector("#AngerQ"))
     }
   }
-  //to scroll to Spotify Playlist
+
   toMusic() {
     smoothScroll(document.querySelector('#Playlist'));
   }
-  //callback function inside playthis(), this sends a post request to server for web scraping
-  callQuote() {
 
+  callQuote() {
     const promise = axios.post('/quote', {
       "feeling": this.state.feeling
     });
@@ -74,7 +71,6 @@ class App extends Component {
     })
   }
 
-  //this setstates the music playlist based on emotion that was returned, callback function from submit()
   playthis() {
     if (this.state.feeling === "joy") {
       smoothScroll(document.querySelector('#Joy'))
@@ -155,7 +151,6 @@ class App extends Component {
     }
   }
 
-  //Takes the new value from textfield and resets state
   handleChange(e) {
     const target = e.target;
     const value = target.value;
@@ -165,11 +160,8 @@ class App extends Component {
     })
   }
 
-  //Submit Button Function
   submit(e) {
-    // window.scrollTo(80, document.body.scrollHeight);
     e.preventDefault()
-
     const promise = axios.post('/text', {
       "api_key": "64cb9e95d8040578512022fd5601c695",
       "data": this.state.emotion,
@@ -219,7 +211,6 @@ class App extends Component {
   }
 }
 
-//This component holds the box where user enters a string of text and submit it into an API for lexical analytics.
 function Emotion(props) {
   return (
     <div className="Emotion">
@@ -264,7 +255,6 @@ function Emotion(props) {
   )
 }
 
-//This component shows what the user is feeling
 function Feeling(props) {
   return (
     <div id={(props.emotion === "joy") ? "Joy" :
@@ -284,7 +274,6 @@ function Feeling(props) {
   )
 }
 
-//This component holds Spotify suggestion:
 function Playlist(props) {
   return (
     <div id={(props.feeling === "") ? "block" : "Playlist"}>
@@ -333,7 +322,6 @@ function Playlist(props) {
   )
 }
 
-//This component spits out a quote for users depending on what emotion the API gives them
 function QuoteArea(props) {
   return (
     <div id={(props.emotion === "joy") ? "JoyQ" :
