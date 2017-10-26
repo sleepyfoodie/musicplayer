@@ -109,7 +109,7 @@ class App extends Component {
         "https://embed.spotify.com/?uri=spotify%3Auser%3Alovsethgirl%3Aplaylist%3A5xV6rLSQeIVchJVPT9H7sX"
       ],
       "fear": [
-        "https://embed.spotify.com/?uri=spotify%3Auser%3Anickfearless%3Aplaylist%3A6EF56fuiUgN2GOMVZIiXpq",
+        "https://open.spotify.com/user/1223054183/playlist/2svxIvMUJyEqFvUWDki6pD",
         "https://embed.spotify.com/?uri=spotify%3Auser%3Aardengard%3Aplaylist%3A5Ryp1G66sjS1S1ZYLTmrQw",
         "https://embed.spotify.com/?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A37i9dQZF1DZ06evO2rEeYg"
       ]
