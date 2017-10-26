@@ -29,16 +29,16 @@ let titleResults = [];
 let counter = 0;
 app.post('/quote', (req, res) => {
     console.log(req.body, 'i get called')
-    if (req.body === "joy") {
+    if (req.body.feeling === "joy") {
         url = urlArray.joy
     }
-    else if (req.body === "sadness") {
+    else if (req.body.feeling === "sadness") {
         url = urlArray.sadness
     }
-    else if (req.body === "surprise") {
+    else if (req.body.feeling === "surprise") {
         url = urlArray.surprise
     }
-    else if (req.body === "anger") {
+    else if (req.body.feeling === "anger") {
         url = urlArray.anger
     }
     else {
